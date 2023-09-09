@@ -45,7 +45,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Data Product'),
+        title: const Text('Home'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -93,9 +93,9 @@ class HomeView extends GetView<HomeController> {
                   backgroundColor: Colors.white,
                 ),
                 title: Text(
-                    "${(listAllDocs[index].data() as Map<String, dynamic>)["name"]}"),
+                    "${(listAllDocs[index].data() as Map<String, dynamic>)["nama"]}"),
                 subtitle: Text(
-                    "${(listAllDocs[index].data() as Map<String, dynamic>)["price"]}"),
+                    "${(listAllDocs[index].data() as Map<String, dynamic>)["npm"]}"),
                 trailing: IconButton(
                   onPressed: () => showOption(listAllDocs[index].id),
                   icon: Icon(Icons.more_vert),

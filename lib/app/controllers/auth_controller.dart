@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_get/app/routes/app_pages.dart';
 
 class AuthController extends GetxController {
@@ -84,6 +85,34 @@ class AuthController extends GetxController {
       Get.defaultDialog(
         title: "Email tidak valid",
         middleText: "Perika kembali email anda.",
+      );
+    }
+  }
+
+  void LoginGoogle() async {
+    try {
+      GoogleSignIn _googleSignIn = GoogleSignIn();
+      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser != null) {
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser?.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        Get.offNamed(Routes.HOME);
+      } else {
+        throw "Belum memilih akun google";
+      }
+    } catch (error) {
+      print(error);
+      Get.defaultDialog(
+        title: "Terjadi Kesalahan",
+        middleText: "${error.toString()}",
       );
     }
   }

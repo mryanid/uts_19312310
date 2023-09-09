@@ -4,24 +4,34 @@ import 'package:get/get.dart';
 
 class AddProductController extends GetxController {
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cNpm;
+  late TextEditingController cAlamat;
+  late TextEditingController cJk;
+  late TextEditingController cProgramstudi;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  void addProduct(String nama, String harga) async {
-    CollectionReference products = firestore.collection("products");
+  void addProduct(String nama, String npm, String alamat, String jk,
+      String program_studi) async {
+    CollectionReference mahasiswa = firestore.collection("mahasiswa");
 
     try {
-      await products.add({
-        "name": nama,
-        "price": harga,
+      await mahasiswa.add({
+        "nama": nama,
+        "npm": npm,
+        "alamat": alamat,
+        "jk": jk,
+        "program_studi": program_studi,
       });
       Get.defaultDialog(
         title: "Berhasil",
-        middleText: "Berhasil menyimpan data produk",
+        middleText: "Berhasil menyimpan data ",
         onConfirm: () {
           cNama.clear();
-          cHarga.clear();
+          cNpm.clear();
+          cAlamat.clear();
+          cJk.clear();
+          cProgramstudi.clear();
           Get.back();
           Get.back();
         },
@@ -33,7 +43,10 @@ class AddProductController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     cNama = TextEditingController();
-    cHarga = TextEditingController();
+    cNpm = TextEditingController();
+    cAlamat = TextEditingController();
+    cJk = TextEditingController();
+    cProgramstudi = TextEditingController();
     super.onInit();
   }
 
@@ -41,7 +54,10 @@ class AddProductController extends GetxController {
   void onClose() {
     // TODO: implement onClose
     cNama.dispose();
-    cHarga.dispose();
+    cNpm.dispose();
+    cAlamat.dispose();
+    cJk.dispose();
+    cProgramstudi.dispose();
     super.onClose();
   }
 }
